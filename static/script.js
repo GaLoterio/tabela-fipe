@@ -1,6 +1,7 @@
 const selectMarca = document.getElementById("marca");
 const selectModelo = document.getElementById("modelo");
 const selectAno = document.getElementById("ano");
+const divResultado = document.getElementById ("resultado")
 
 async function buscar(caminho) {
   const resposta = await fetch(caminho);
@@ -11,7 +12,7 @@ async function buscar(caminho) {
 }
 
 function preencher(select, itens) {
-  select.innerHTML = '<option value="">Selecione...';
+  select.innerHTML = '<option value="">Selecione...</option>';
   for (const item of itens) {
     const opcao = document.createElement("option");
     opcao.value = item.code;
@@ -33,6 +34,7 @@ async function carregarModelos(marcaID) {
     preencher(selectModelo, modelos);
 }
 selectMarca.addEventListener("change", () => {
+    limparResultado();
     limpar(selectModelo);
     limpar(selectAno);
     if(!selectMarca.value) return;
@@ -50,6 +52,41 @@ selectModelo.addEventListener("change",() => {
     if(!selectModelo.value) return;
     carregarAnos(selectMarca.value,selectModelo.value);
 });
+
+function limparResultado() {
+  divResultado.textContent = "";
+}
+
+function mostrarPreco(dados) {
+  limparResultado();
+
+  const linhas = [
+    `${dados.brand} ${dados.model}`,
+    `Ano: ${dados.modelYear} (${dados.fuel})`,
+    `Valor: ${dados.price}`,
+    `Referência: ${dados.referenceMonth}`,
+  ];
+
+  for (const texto of linhas) {
+    const p = document.createElement("p");
+    p.textContent = texto;
+    divResultado.appendChild(p);
+  }
+}
+
+async function carregarPreco(marcaId, modeloId, anoId) {
+  const dados = await buscar(
+    `/api/marcas/${marcaId}/modelos/${modeloId}/anos/${anoId}/preco`
+  );
+  mostrarPreco(dados);
+}
+
+selectAno.addEventListener("change", () => {
+  limparResultado();
+  if (!selectAno.value) return;
+  carregarPreco(selectMarca.value, selectModelo.value, selectAno.value);
+});
+
 
 function limpar(select){
     select.innerHTML = '<option value="">Selecione...</option>';
