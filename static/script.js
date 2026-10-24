@@ -2,6 +2,10 @@ const selectMarca = document.getElementById("marca");
 const selectModelo = document.getElementById("modelo");
 const selectAno = document.getElementById("ano");
 const divResultado = document.getElementById ("resultado")
+const inputBusca = document.getElementById("busca-modelo")
+
+let modelosCarregados = [];
+
 
 async function buscar(caminho) {
   const resposta = await fetch(caminho);
@@ -31,7 +35,9 @@ carregarMarcas();
 
 async function carregarModelos(marcaID) {
     const modelos = await buscar(`/api/marcas/${marcaID}/modelos`);
+    modelosCarregados = modelos;
     preencher(selectModelo, modelos);
+    inputBusca.disabled = false;
 }
 selectMarca.addEventListener("change", () => {
     limparResultado();
@@ -87,6 +93,19 @@ selectAno.addEventListener("change", () => {
   carregarPreco(selectMarca.value, selectModelo.value, selectAno.value);
 });
 
+inputBusca.addEventListener("input",() =>{
+    const termo = inputBusca.value.toLowerCase();
+    const filtrados = [];
+    for (const modelo of modelosCarregados){
+        if(modelo.name.toLowerCase().includes(termo)){
+            filtrados.push(modelo);
+        }
+    }
+    limparResultado(selectAno);
+    limparResultado();
+    preencher(selectModelo, filtrados);
+
+});
 
 function limpar(select){
     select.innerHTML = '<option value="">Selecione...</option>';
