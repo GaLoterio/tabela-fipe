@@ -110,7 +110,7 @@ function definirImagemHero(marca) {
 }
 
 async function carregarImagensModelos() {
-  const resposta = await fetch("/fipe_top3_com_imagens.csv");
+  const resposta = await fetch("/data/fipe_top3_com_imagens.csv");
   if (!resposta.ok) {
     throw new Error(`Erro ao carregar imagens: ${resposta.status}`);
   }

@@ -8,6 +8,7 @@ from pathlib import Path
 
 import requests
 
+ROOT = Path(__file__).resolve().parent.parent
 API = "https://commons.wikimedia.org/w/api.php"
 HEADERS = {
     "User-Agent": "TabelaFIPE/1.0 (https://github.com/GaLoterio/tabela-fipe)"
@@ -133,10 +134,14 @@ def main():
     parser.add_argument(
         "--saida",
         type=Path,
-        default=Path("static/fipe_top3_com_imagens.csv"),
-        help="CSV de saída (padrão: static/fipe_top3_com_imagens.csv)",
+        default=ROOT / "static/data/fipe_top3_com_imagens.csv",
+        help="CSV de saída (padrão: static/data/fipe_top3_com_imagens.csv)",
     )
     args = parser.parse_args()
+    if not args.entrada.is_absolute():
+        args.entrada = Path.cwd() / args.entrada
+    if not args.saida.is_absolute():
+        args.saida = Path.cwd() / args.saida
 
     with args.entrada.open(newline="", encoding="utf-8-sig") as arquivo:
         linhas = list(csv.DictReader(arquivo, delimiter=";"))
