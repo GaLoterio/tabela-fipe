@@ -25,6 +25,16 @@ Python 3 e requests.
 
 Em desenvolvimento. Próximos passos: escolher marca e ano pelo menu, filtro de modelos e interface gráfica.
 
+## Imagens dos modelos
+
+A interface mostra fotos dos três modelos em destaque de cada marca. As imagens e links de atribuição são gerados a partir do Wikimedia Commons:
+
+```bash
+python adicionar_imagens.py /caminho/para/fipe_top3_por_marca.csv
+```
+
+O arquivo gerado é salvo em `static/fipe_top3_com_imagens.csv`.
+
 ## Observação
 
 Os valores são médias de mercado da Tabela FIPE para o mês de referência, não preços de venda.

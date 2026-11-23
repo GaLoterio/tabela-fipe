@@ -3,27 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tabela FIPE</title>
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="description" content="Consulte valores de referência de veículos pela Tabela FIPE.">
+  <title>Tabela FIPE — Performance &amp; precisão</title>
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="hero">
+    <img class="hero__photo" id="hero-photo" alt="" aria-hidden="true">
+    <div class="hero__content">
+      <p class="hero__eyebrow"><span class="status-dot"></span> Central de dados automotivos</p>
+      <h1>Tabela <span>FIPE</span></h1>
+      <p class="hero__subtitle">Tabela de referência de preços de veículos</p>
+      <a class="hero__scroll" href="#consulta"><span>01</span> Iniciar consulta</a>
+    </div>
+    <div class="hero__index" aria-hidden="true">BR / FIPE / 2026</div>
+    <div class="hero__bottom-line" aria-hidden="true"></div>
+  </header>
+
   <main>
-    <h1>Tabela FIPE</h1>
+    <section class="consulta section-shell" id="consulta" aria-labelledby="consulta-titulo">
+      <div class="section-heading">
+        <p class="section-heading__index">01 / CONSULTA</p>
+        <h2 id="consulta-titulo">Encontre seu <span>próximo carro.</span></h2>
+        <p class="section-heading__description">Selecione marca, modelo e ano para consultar o valor de referência.</p>
+      </div>
 
-    <label for="marca">Marca</label>
-    <select id="marca"></select>
+      <form class="form-panel" aria-label="Consulta de preço FIPE" onsubmit="return false">
+        <div class="progress-track" role="progressbar" aria-label="Progresso da consulta" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0">
+          <span class="progress-track__fill"></span>
+        </div>
+        <div class="progress-steps" aria-hidden="true">
+          <span data-progress-step="1">01 <i>MARCA</i></span>
+          <span data-progress-step="2">02 <i>MODELO</i></span>
+          <span data-progress-step="3">03 <i>ANO</i></span>
+        </div>
 
-    <label for="busca-modelo">Buscar modelo</label>
-    <input type="text" id="busca-modelo" placeholder="Ex.: xc 60" disabled>
+        <div class="field" data-field="marca">
+          <label for="marca"><span class="field__number">01</span> Marca</label>
+          <select id="marca" name="marca" aria-describedby="status-consulta">
+            <option value="">Carregando marcas...</option>
+          </select>
+        </div>
 
-    <label for="modelo">Modelo</label>
-    <select id="modelo" disabled></select>
+        <div class="field" data-field="busca">
+          <label for="busca-modelo"><span class="field__number">02</span> Buscar modelo</label>
+          <input type="search" id="busca-modelo" name="busca-modelo" placeholder="Digite o nome do veículo" autocomplete="off" disabled aria-describedby="estado-modelos status-consulta">
+        </div>
 
-    <label for="ano">Ano</label>
-    <select id="ano" disabled></select>
+        <div class="field" data-field="modelo">
+          <label for="modelo"><span class="field__number">02</span> Modelo</label>
+          <select id="modelo" name="modelo" disabled aria-describedby="estado-modelos status-consulta">
+            <option value="">Selecione uma marca primeiro</option>
+          </select>
+          <p class="field__message" id="estado-modelos" aria-live="polite"></p>
+        </div>
 
-    <div id="resultado"></div>
+        <div class="field" data-field="ano">
+          <label for="ano"><span class="field__number">03</span> Ano</label>
+          <select id="ano" name="ano" disabled aria-describedby="status-consulta">
+            <option value="">Selecione um modelo primeiro</option>
+          </select>
+        </div>
+
+        <div class="form-loader" id="loading-indicator" hidden>
+          <span class="form-loader__bar"></span>
+          <span id="loading-text">Carregando dados...</span>
+        </div>
+        <p class="form-status" id="status-consulta" role="status" aria-live="polite"></p>
+      </form>
+
+      <section id="modelos-com-fotos" class="featured" aria-live="polite" hidden>
+        <div class="featured__heading">
+          <p class="section-heading__index">SELEÇÃO DA CASA</p>
+          <h2>Modelos em <span>destaque.</span></h2>
+        </div>
+        <div id="lista-modelos" class="featured__grid"></div>
+      </section>
+    </section>
+
+    <section class="result-section section-shell" aria-labelledby="resultado-titulo">
+      <div class="section-heading section-heading--compact">
+        <p class="section-heading__index">02 / VALOR DE REFERÊNCIA</p>
+        <h2 id="resultado-titulo">Ficha <span>técnica.</span></h2>
+      </div>
+      <div id="resultado" class="result-card" aria-live="polite" aria-atomic="true"></div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <span class="site-footer__mark">FIPE<span> / </span>DATA</span>
+    <span>Valores de referência fornecidos pela Tabela FIPE.</span>
+    <span class="site-footer__edition">BRASIL · 2026</span>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
