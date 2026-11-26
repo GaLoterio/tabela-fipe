@@ -4,12 +4,29 @@ Aplicação web para consultar valores de referência de veículos por marca, mo
 
 ## Conteúdo
 
+- [Prévia da interface](#prévia-da-interface)
 - [Requisitos](#requisitos)
 - [Instalação e execução](#instalação-e-execução)
 - [Como usar](#como-usar)
 - [Estrutura do projeto](#estrutura-do-projeto)
 - [Documentação complementar](#documentação-complementar)
 - [Dados e imagens](#dados-e-imagens)
+
+## Prévia da interface
+
+<p align="center">
+  <img src="docs/screenshots/01-home.png" alt="Tela inicial da Tabela FIPE" width="100%">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/02-consulta.png" alt="Formulário de consulta FIPE" width="49%">
+  <img src="docs/screenshots/03-modelos.png" alt="Seleção de modelos em destaque" width="49%">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/04-ficha-kicks.png" alt="Ficha técnica do Nissan Kicks" width="49%">
+  <img src="docs/screenshots/05-ficha-frontier.png" alt="Ficha técnica da Nissan Frontier" width="49%">
+</p>
 
 ## Requisitos
 
